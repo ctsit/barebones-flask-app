@@ -65,6 +65,8 @@ site/
 deploy/settings.conf
 private/
 
+.coveralls.yml
+
 # ignore debugging certs
 ssl/server.crt
 ssl/server.key
