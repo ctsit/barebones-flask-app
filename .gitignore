@@ -61,3 +61,5 @@ site/
 
 # pymode files
 .ropeproject/
+
+private/
