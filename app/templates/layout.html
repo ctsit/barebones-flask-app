@@ -1,0 +1,110 @@
+{% from "macros.html" import render_nav_link with context %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Barebones Web Application</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/fileupload.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/start_upload.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/parallax.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!--
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+    -->
+
+    <script src="{{ url_for('static', filename='js/jquery.tablesorter.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/resumable.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.1/JSXTransformer.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"> </script>
+<!--
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot" charset="utf-8">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg" charset="utf-8">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/fonts/glyphicons-halflings-regular.ttf" charset="utf-8">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/fonts/glyphicons-halflings-regular.woff" charset="utf-8">
+-->
+
+    {% block scripts %}
+        <!-- allow to insert page specific js -->
+    {% endblock %}
+  </head>
+
+<body>
+{% if current_user.is_authenticated() %}
+    <div id="wrapper">
+{%else%}
+    <div id="wrapper" class="toggled">
+{%endif%}
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" class="bg-primary red-background">
+            <ul class="sidebar-nav">
+                {% for link in user_links %}
+                    {{ render_nav_link(link[0], link[1]) }}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div id="page-content-wrapper">
+            <nav class="navbar">
+                <div class="container-fluid bg-primary red-background">
+                    <div class="navbar-header">
+                        <div class="navbar-brand" href="/">
+                            {% if current_user.is_authenticated() %}
+                                <i id="menu-toggle"
+                                    title="Logged in as {{ current_user.email }}"
+                                    class="fa fa-bars fa-lg icon-white cursor-pointer"></i>
+                            {% endif %}
+                            <a class="logo-name" href="/">Barebones Flask App</a>
+                        </div>
+                    </div>
+                    <p>{% block login %} {% endblock %}</p>
+                </div>
+            </nav>
+            <div class="col-sm-12 col-md-12 col-lg-12 main-content">
+                {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                {% if errors %}
+
+                <div class="alert-message block-message error">
+                    <a class="close" href="#">×</a>
+                    <ul>
+                        {%- for msg in errors %}
+                        <li>{{ msg }}</li>
+                        {% endfor -%}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+
+
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar-default navbar-fixed-bottom">
+        <div class="container text-center footer">
+<a href="https://www.ctsi.ufl.edu/research/study-development/informatics-consulting/">CTS-IT</a>
+            at the University of Florida
+            &middot; All Rights Reserved
+            &middot; <a href="https://github.com/ctsit/barebones-flask-app/tree/{{config['APP_VERSION']}}">Version {{config['APP_VERSION']}}</a>
+        </div>
+    </div>
+
+</body>
+</html>

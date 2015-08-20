@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% import 'macros.html' as macros %}
+
+{% block login %}
+    {% call macros.render_form(form,
+                        action_url=url_for('shibb_redirect'),
+                        action_text='Login',
+                        btn_class='btn btn-default',
+                        class_='navbar-right') %}
+    {% endcall %}
+{% endblock %}
+
+{% block content %}
+
+    <!-- first section - Home -->
+    <div id="home">
+    </div>
+    <!-- /first section -->
+
+    <!-- second section - About -->
+    <div id="about" class="pad-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h2>What is RED-I Dropper?</h2>
+                    <p class="lead">
+                    RED-I Dropper is a web-based application used to assist in the secure transport of data from one location to another. This transfer can include both sensitive and non-sensitive data.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /second section -->
+
+    <!-- third section - Services -->
+    <div id="services" class="pad-section">
+        <div class="container">
+            <h2 class="text-center">Dropper Resources</h2> <hr />
+            <div class="row text-center">
+                <div class="col-sm-4 col-xs-6">
+                    <i class="glyphicon glyphicon-cloud"> </i>
+                    <h4>Getting Started</h4>
+                    <p></p>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <i class="glyphicon glyphicon-phone-alt"> </i>
+                    <h4>Support</h4>
+                    <p></p>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <i class="glyphicon glyphicon-bullhorn"> </i>
+                    <h4>FAQ</h4>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /third section -->
+
+    <!-- fourth section - Information -->
+    <div id="information" class="pad-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">STAR</h2>
+                        </div>
+                        <div class="panel-body lead">
+                            RED-I Dropper is a component of the Software Toolset for Alzheimer's
+                            Research (STAR) system created in conjunction with the Alzheimer's
+                            Disease Research Consortium. STAR is a cloud of technology services
+                            created by CTSI-IT that serves to orchestrate the capture of data and
+                            metadata as it flows from each consortium member to form a dataset
+                            for analysis that will advance the understanding of Alzheimer's
+                            Disease.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /fourth section -->
+
+{% endblock %}

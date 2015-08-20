@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% import 'macros.html' as macros %}
+
+{% block login %}
+    {% call macros.render_form(form,
+                    action_url=url_for('index'),
+                    action_text='Login',
+                    btn_class='btn btn-default',
+                    class_='navbar-form navbar-right') %}
+         {{ macros.render_field(form.email,
+                    label_visible=false,
+                    placeholder='Email Address',
+                    autocomplete='on',
+                    type='email') }}
+         {{ macros.render_field(form.password,
+                    label_visible=false,
+                    placeholder='Password',
+                    type='password') }}
+         {{ macros.render_field(form.next,
+                    value=next_page,
+                    type='hidden') }}
+         {{ macros.render_field(form.next,
+                    value=next_page,
+                    type='hidden') }}
+    {% endcall %}
+{% endblock %}
+
+{% block content %}
+
+    <!-- first section - login -->
+    <div id="home">
+    </div>
+    <!-- /first section -->
+
+    <!-- second section - About -->
+    <div id="about" class="pad-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h2>What is Barebones Flask App?</h2>
+                    <p class="lead">
+                    An example web-based application.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /second section -->
+
+    <!-- third section - Services -->
+    <div id="services" class="pad-section">
+        <div class="container">
+            <h2 class="text-center">Resources</h2> <hr />
+            <div class="row text-center">
+                <div class="col-sm-4 col-xs-6">
+                    <i class="glyphicon glyphicon-cloud"> </i>
+                    <h4>Getting Started</h4>
+                    <p></p>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <i class="glyphicon glyphicon-phone-alt"> </i>
+                    <h4>Support</h4>
+                    <p></p>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <i class="glyphicon glyphicon-bullhorn"> </i>
+                    <h4>FAQ</h4>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /third section -->
+
+    <!-- fourth section - Information -->
+    <div id="information" class="pad-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">BLA header</h2>
+                        </div>
+                        <div class="panel-body lead"> BLA
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /fourth section -->
+
+
+{% endblock %}

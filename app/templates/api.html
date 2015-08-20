@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+
+function bindForm(id, jsonify) {
+    jsonify = typeof jsonify !== 'undefined' ? jsonify : true;
+
+    $(id).submit(function(evt) {
+        evt.preventDefault();
+        var self = $(this),
+            // x = self.find("input[name='x']").val(),
+            url = self.attr("action");
+
+        var formData = self.serialize();
+        var request = $.post(url, formData);
+
+        request.done(function(data) {
+            var text;
+            if (jsonify) {
+                text = JSON.stringify(data, null, 2);
+            }
+            else {
+                text = "Got " + data.length + " bytes.";
+                text += "<br />First 100 chars: " + data.substr(0);
+            }
+            $("#request").empty().append(url + "?" + formData);
+            $("#result").empty().append(text);
+        });
+        request.fail(function (jqXHR, textStatus, error) {
+            console.log('Failed: ' + textStatus + " " + error);
+        });
+    });
+}
+
+function init() {
+    bindForm("#list_subject_events");
+    bindForm("#list_subject_event_files");
+    bindForm("#find_subject");
+    bindForm("#list_events");
+    bindForm("#upload");
+    bindForm("#download_file", false);
+    bindForm("#save_user");
+
+    bindForm("#list_users");
+    bindForm("#list_logs");
+    bindForm("#list_local_subjects");
+
+    bindForm("#activate_account");
+    bindForm("#deactivate_account");
+    bindForm("#send_verification_email");
+    bindForm("#verify_email");
+    bindForm("#extend_account");
+    bindForm("#expire_account");
+
+    bindForm("#import_redcap_subjects");
+    bindForm("#import_redcap_events");
+}
+
+$(document).ready(function() {
+    init();
+});
+</script>
+
+{{super()}}
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-2 img-rounded bg-info">
+    <h4>List of API Functions</h4>
+
+    <ol class="text-left">
+        <li><form id="list_subject_events" method="post" action="/api/list_subject_events">
+            <input type="hidden" name="subject_id" value="1" />
+            <button>/api/list_subject_events </button> </form>
+        <li><form id="list_subject_event_files" method="post" action="/api/list_subject_event_files">
+            <input type="hidden" name="subject_id" value="1" />
+            <input type="hidden" name="event_id" value="1" />
+            <button>/api/list_subject_event_files </button> </form>
+        <li><form id="find_subject" method="post" action="/api/find_subject">
+            <input type="hidden" name="name" value="1" />
+            <button>/api/find_subject </button> </form>
+        <li><form id="list_events" method="post" action="/api/list_events">
+            <button>/api/list_events </button> </form>
+
+        <li><form id="upload" method="post" action="/api/upload">
+            <button>/api/upload </button> </form>
+        <li><form id="download_file" method="post" action="/api/download_file">
+            <input type="hidden" name="file_id" value="1" />
+            <button>/api/download_file </button> </form>
+
+        <li><form id="save_user" method="post" action="/api/save_user">
+            <input type="hidden" name="email" value="test@test.com" />
+            <button>/api/save_user </button> </form>
+        <li><form id="list_users" method="post" action="/api/list_users">
+            <button>/api/list_users </button> </form>
+        <li><form id="list_logs" method="post" action="/api/list_logs">
+            <button>/api/list_logs </button> </form>
+        <li><form id="list_local_subjects" method="post" action="/api/list_local_subjects">
+            <input type="hidden" name="per_page" value="5" />
+            <input type="hidden" name="page_num" value="1" />
+            <button>/api/list_local_subjects </button> </form>
+
+        <!-- ADMIN -->
+        <li><form id="activate_account" method="post"           action="/api/activate_account">
+            <button>/api/activate_account </button> </form>
+        <li><form id="deactivate_account" method="post"         action="/api/deactivate_account">
+            <button>/api/deactivate_account </button> </form>
+        <li><form id="send_verification_email" method="post"    action="/api/send_verification_email">
+            <button>/api/send_verification_email </button> </form>
+        <li><form id="verify_email" method="post"               action="/api/verify_email">
+            <input type="hidden" name="tok" value="invalid.token" />
+            <button>/api/verify_email </button> </form>
+        <li><form id="extend_account" method="post"             action="/api/extend_account">
+            <button>/api/extend_account </button> </form>
+        <li><form id="expire_account" method="post"             action="/api/expire_account">
+            <button>/api/expire_account</button> </form>
+
+        <!-- All users -->
+        <li><form id="import_redcap_subjects" method="post"     action="/api/import_redcap_subjects">
+            <button>/api/import_redcap_subjects </button> </form>
+        <li><form id="import_redcap_events" method="post"       action="/api/import_redcap_events">
+            <button>/api/import_redcap_events </button> </form>
+        </ol>
+    </div>
+
+    <div class="col-md-4 img-rounded bordered text-left">
+        Request data: <span id="request"></span>
+        <hr />
+        Request results: <pre id="result" class="text-left"> </pre>
+    </div>
+</div>
+
+{% endblock %}

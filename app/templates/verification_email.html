@@ -1,0 +1,14 @@
+
+<p> Hello {{ user.get_name() }}, </p>
+
+<p>
+Please click on the provided link to verify your email for accessing the application.
+
+<br />
+<a href="{{ url_for('api_verify_email', tok=token, _external=True) }}">VERIFY EMAIL</a>
+</p>
+
+<p>Regards, </p>
+
+<p> The support team. </p>
+<a href="mailto:{{ sender }}"> {{ sender }} </a>
