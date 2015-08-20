@@ -1,0 +1,71 @@
+.custom-modal { /* The actual box, centered in the fixed-position div */
+    width:150%; /* Whatever width you want the box to be */
+    position:relative;
+    margin:0 auto;
+
+    background-color: #383838;
+    font-family: Calibri;
+    font-size: 20px;
+    color: #F0F0F0;
+    padding:10px;
+}
+
+.custom-main-modal-wrap { /* The div that shows/hides. */
+    z-index:80001; /* High z-index to ensure it appears above all content */
+}
+
+.custom-modal-offset { /* Fixed position to provide the vertical offset */
+    position:fixed;
+    top:15%;
+    right:10%;
+    z-index:80002; /* ensures box appears above overlay */
+}
+
+.red-background {
+    background-color: #a51a11;
+}
+
+a.logo-name:hover, a.logo-name:active,
+ul.sidebar-nav li a:hover, ul.sidebar-nav li a:active {
+    color: #FFF !important;
+}
+
+th.header {
+    background-image: url(/static/img/small.gif);
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+th.header:hover {
+    background-color: #efefef;
+}
+
+
+th.header.headerSortUp {
+    background-image: url(/static/img/small_asc.gif);
+}
+
+th.header.headerSortDown {
+    background-image: url(/static/img/small_desc.gif);
+}
+
+table.borderless td, table.borderless th {
+    border: none !important;
+}
+
+.bordered {
+    border: solid 1px black;
+}
+
+.login-form-container {
+    margin-top: 3em;
+    padding: 3em;
+    background-color: #a51a11;
+}
+
+.footer {
+    min-height: 40px;
+    padding-top: 5px;
+    color: #888;
+}
