@@ -1,0 +1,46 @@
+sudo: false
+language: python
+python:
+    - "2.7"
+
+branches:
+    only:
+        - master
+        - develop
+
+# __1 Use this to prepare the system to install prerequisites or dependencies
+before_install:
+    - echo "Nothing to do"
+
+# __2 Use this to install any prerequisites or dependencies necessary to run your build
+install:
+    - pip install fabric coveralls
+    - fab prep_develop
+
+# __3 Use this to prepare your build for testing
+before_script:
+    - echo "Creating the database..."
+    - mysql -uroot < schema/0.0.0/upgrade.sql
+    - echo "Creating the tables..."
+    - mysql -uroot barebones < schema/0.0.1/upgrade.sql
+    - echo "Adding data..."
+    - mysql -barebones -pinsecurepassword barebones < schema/0.0.1/data.sql
+
+# __4 All commands must exit with code 0 on success. Anything else is considered failure.
+script:
+    - ls -al deploy/
+    # put config file in the place expected by config.py
+    - cp deploy/sample.settings.conf deploy/settings.conf
+    - fab coverage
+
+# __5a after_success
+after_success:
+    - coveralls -v
+
+# __5b
+after_failure:
+    echo "Broken."
+
+# __6
+after_script:
+    echo "Cleanup."

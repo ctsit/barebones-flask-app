@@ -1,0 +1,57 @@
+/* ============================================================================================== 
+This copyright notice must be kept untouched in the stylesheet at all times.
+The original version of this stylesheet and the associated (x)html 
+is available at http://www.script-tutorials.com/bootstrap-one-page-template-with-parallax-effect/
+Copyright (c) Script Tutorials. All rights reserved.
+This stylesheet and the associated (x)html may be modified in any way to fit your requirements.
+================================================================================================= */
+
+/* padded section */
+.pad-section {
+  padding: 50px 0;
+}
+
+/* additional sections */
+#home {
+  background: url(/static/img/bottles.jpg) no-repeat center center fixed; 
+  display: table;
+  height: 50vh;
+  position: relative;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#about {
+}
+
+#services {
+  background-color: #a51a11;
+  color: #ffffff;
+}
+
+#services .glyphicon {
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 60px;
+  height: 140px;
+  line-height: 140px;
+  text-align: center;
+  vertical-align: middle;
+  width: 140px;
+}
+
+#information {
+  background: url(/static/img/oil.jpg) no-repeat center center fixed; 
+  display: table;
+  height: 300px;
+  position: relative;
+  width: 100%;
+  background-size: cover;
+}
+#information .panel {
+  opacity: 0.85;
+}

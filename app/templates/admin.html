@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>User Management</h1>
+    <div id="admin-user-managememt">
+    </div>
+    <div id="show-modal" class="custom-main-modal-wrap">
+		<div class="custom-modal-offset">
+		    <div id="show-message" class="custom-modal" hidden></div>
+	    </div>
+    </div>
+
+	<div>
+    <script  type="text/jsx"  src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

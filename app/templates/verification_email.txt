@@ -1,0 +1,12 @@
+Hello {{ user.get_name() }},
+
+Please click on the provided link to verify your email for accessing the application.
+
+
+{{ url_for('api_verify_email', tok=token, _external=True) }}
+
+
+Regards,
+
+The support team.
+{{ sender }}

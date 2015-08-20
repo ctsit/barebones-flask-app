@@ -55,3 +55,16 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# mkdocs
+site/
+
+# pymode files
+.ropeproject/
+
+deploy/settings.conf
+private/
+
+# ignore debugging certs
+ssl/server.crt
+ssl/server.key
