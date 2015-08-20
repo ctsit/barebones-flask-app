@@ -55,3 +55,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# mkdocs
+site/
+
+# pymode files
+.ropeproject/
