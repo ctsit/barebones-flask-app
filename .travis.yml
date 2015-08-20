@@ -24,7 +24,7 @@ before_script:
     - echo "Creating the tables..."
     - mysql -uroot barebones < schema/0.0.1/upgrade.sql
     - echo "Adding data..."
-    - mysql -barebones -pinsecurepassword barebones < schema/0.0.1/data.sql
+    - mysql -u barebones -pinsecurepassword barebones < schema/0.0.1/data.sql
 
 # __4 All commands must exit with code 0 on success. Anything else is considered failure.
 script:
