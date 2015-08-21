@@ -16,8 +16,6 @@ protected_pages = [
     '/loginExternalAuthReturn',
     '/admin',
     '/dashboard',
-    '/upload_files',
-    '/download_file',
     '/logs',
     ]
 
