@@ -51,7 +51,7 @@
 {%endif%}
 
         <!-- Sidebar -->
-        <div id="sidebar-wrapper" class="bg-primary red-background">
+        <div id="sidebar-wrapper" class="bg-primary theme-background">
             <ul class="sidebar-nav">
                 {% for link in user_links %}
                     {{ render_nav_link(link[0], link[1]) }}
@@ -61,7 +61,7 @@
 
         <div id="page-content-wrapper">
             <nav class="navbar">
-                <div class="container-fluid bg-primary red-background">
+                <div class="container-fluid bg-primary theme-background">
                     <div class="navbar-header">
                         <div class="navbar-brand" href="/">
                             {% if current_user.is_authenticated() %}
