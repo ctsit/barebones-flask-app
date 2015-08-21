@@ -32,6 +32,7 @@ script:
     # put config file in the place expected by config.py
     - cp deploy/sample.settings.conf deploy/settings.conf
     - fab coverage
+    - behave
 
 # __5a after_success
 after_success:
