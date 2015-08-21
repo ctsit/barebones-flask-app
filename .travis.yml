@@ -10,7 +10,11 @@ branches:
 
 # __1 Use this to prepare the system to install prerequisites or dependencies
 before_install:
-    - echo "Nothing to do"
+    # http://docs.travis-ci.com/user/gui-and-headless-browsers/
+    - echo "Init xvfb (X Virtual Framebuffer)"
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
+    - sleep 1 # give xvfb some time to start
 
 # __2 Use this to install any prerequisites or dependencies necessary to run your build
 install:
@@ -32,6 +36,7 @@ script:
     # put config file in the place expected by config.py
     - cp deploy/sample.settings.conf deploy/settings.conf
     - fab coverage
+    - fab run &
     - behave
 
 # __5a after_success
