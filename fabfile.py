@@ -17,7 +17,7 @@ from contextlib import contextmanager
 def show_docs():
     """ Show makedocs """
     local('which mkdocs || pip install mkdocs')
-    local('mkdocs buld && mkdocs serve &')
+    local('mkdocs build && mkdocs serve &')
     local('open http://127.0.0.1:8000/')
     local("ps -fe | grep 'bin/mkdocs' | head -1 | cut -d ' ' -f 5")
 
