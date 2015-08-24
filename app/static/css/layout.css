@@ -21,8 +21,8 @@
     z-index:80002; /* ensures box appears above overlay */
 }
 
-.red-background {
-    background-color: #a51a11;
+.theme-background {
+    background-color: #123C84;
 }
 
 a.logo-name:hover, a.logo-name:active,
@@ -61,7 +61,6 @@ table.borderless td, table.borderless th {
 .login-form-container {
     margin-top: 3em;
     padding: 3em;
-    background-color: #a51a11;
 }
 
 .footer {

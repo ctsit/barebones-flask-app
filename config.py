@@ -26,8 +26,7 @@ class DefaultConfig(object):
     LOG_LEVEL = logging.INFO
 
     # used for deployment
-    CONFIDENTIAL_SETTINGS_FILE = os.path.join(BASEDIR,
-                                              '/srv/apps/barebones/settings.conf')
+    CONFIDENTIAL_SETTINGS_FILE = '/srv/apps/barebones/settings.conf'
 
     # Use local or shib sso auth
     LOGIN_USING_SHIB_AUTH = True
@@ -74,5 +73,4 @@ class TestConfig(DefaultConfig):
     """ Configuration for running tests """
     TESTING = True
     CSRF_ENABLED = False
-    CONFIDENTIAL_SETTINGS_FILE = os.path.join(BASEDIR,
-                                              'deploy/settings.conf')
+    CONFIDENTIAL_SETTINGS_FILE = os.path.join(BASEDIR, 'deploy/settings.conf')

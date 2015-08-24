@@ -67,6 +67,6 @@ private/
 
 .coveralls.yml
 
-# ignore debugging certs
-ssl/server.crt
-ssl/server.key
+# ignore debugging self-signed certs
+#ssl/server.crt
+#ssl/server.key

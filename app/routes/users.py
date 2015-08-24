@@ -82,7 +82,7 @@ def get_user_links():
         links = [pages['admin'],
                  pages['logs']]
     elif ROLE_TECHNICIAN == role:
-        links = [pages['upload_files'], pages['dashboard']]
+        links = [pages['dashboard']]
 
     links.append(pages['logout'])
     return links
