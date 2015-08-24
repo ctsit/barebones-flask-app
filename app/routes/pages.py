@@ -275,7 +275,7 @@ def get_role_landing_page():
     if next_page is not None and next_page != 'None':
         return next_page
 
-    return url_for('upload_files')
+    return url_for('dashboard')
 
 
 @identity_loaded.connect_via(app)

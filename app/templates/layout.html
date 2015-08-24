@@ -25,7 +25,6 @@
     -->
 
     <script src="{{ url_for('static', filename='js/jquery.tablesorter.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/resumable.js') }}"></script>
     <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
@@ -51,7 +50,7 @@
 {%endif%}
 
         <!-- Sidebar -->
-        <div id="sidebar-wrapper" class="bg-primary red-background">
+        <div id="sidebar-wrapper" class="bg-primary theme-background">
             <ul class="sidebar-nav">
                 {% for link in user_links %}
                     {{ render_nav_link(link[0], link[1]) }}
@@ -61,7 +60,7 @@
 
         <div id="page-content-wrapper">
             <nav class="navbar">
-                <div class="container-fluid bg-primary red-background">
+                <div class="container-fluid bg-primary theme-background">
                     <div class="navbar-header">
                         <div class="navbar-brand" href="/">
                             {% if current_user.is_authenticated() %}
