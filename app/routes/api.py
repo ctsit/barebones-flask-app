@@ -10,12 +10,9 @@ Goal: Delegate requests to the `/api` path to the appropriate controller
 
 # import math
 from datetime import datetime
-import collections
 
 from flask import request
-from flask import send_file
 from flask import session
-from flask import make_response
 from flask_login import login_required
 
 from app.main import app, db
@@ -26,7 +23,7 @@ from app.models.log_entity import LogEntity
 from app.models.user_entity import UserEntity
 from app.models.role_entity import RoleEntity
 
-from app.routes.users import perm_admin, perm_admin_or_technician
+from app.routes.users import perm_admin
 
 
 @app.route('/api/save_user', methods=['POST'])
@@ -124,7 +121,6 @@ def api_list_logs():
         dict(list_of_events=logs, total_pages=total_pages))
 
 
-
 @app.route('/api/activate_account', methods=['POST'])
 @login_required
 @perm_admin.require()
@@ -163,16 +159,41 @@ def api_deactivate_account():
     return utils.jsonify_success({"message": "User deactivated."})
 
 
+def check_email_config():
+    """
+    @return: False if there are missing configuration parameters for emailing
+    """
+    passed = True
+    required = ['MAIL_USERNAME', 'MAIL_PASSWORD', 'MAIL_SERVER', 'MAIL_PORT']
+    errors = []
+
+    for req in required:
+        if req not in app.config:
+            errors.append("Emailing param {} was not configured.".format(req))
+
+    for error in errors:
+        app.logger.error(error)
+        passed = False
+
+    return passed, errors
+
+
 @app.route('/api/send_verification_email', methods=['POST'])
 @login_required
 @perm_admin.require()
 def api_send_verification_email():
     """
-    @TODO: Send Verification Email to user_id
+    Send Verification Email to the `user_id` specified in the request
 
     :rtype: Response
     :return the success or failed in json format
     """
+    passed, errors = check_email_config()
+    if not passed:
+        app.logger.warn(" ".join(errors))
+        return utils.jsonify_error(
+            {"message": "Unable to send email due to configuration errors."})
+
     user_id = utils.get_safe_int(request.form.get('user_id'))
     user = UserEntity.get_by_id(user_id)
 
@@ -276,4 +297,3 @@ def api_extend_account():
                                    today_plus_180, user.email))
     return utils.jsonify_success(
         {"message": "Updated expiration date to {}".format(today_plus_180)})
-

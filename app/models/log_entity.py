@@ -19,11 +19,7 @@ from app.models.log_type_entity import \
     LOG_TYPE_LOGIN, \
     LOG_TYPE_LOGOUT, \
     LOG_TYPE_LOGIN_ERROR, \
-    LOG_TYPE_FILE_UPLOADED, \
-    LOG_TYPE_FILE_DOWNLOADED, \
-    LOG_TYPE_ACCOUNT_MODIFIED, \
-    LOG_TYPE_REDCAP_SUBJECTS_IMPORTED, \
-    LOG_TYPE_REDCAP_EVENTS_IMPORTED
+    LOG_TYPE_ACCOUNT_MODIFIED
 
 
 class LogEntity(db.Model, CRUDMixin):
@@ -55,7 +51,8 @@ class LogEntity(db.Model, CRUDMixin):
         def item_from_entity(entity):
             return {
                 'id': entity.id,
-                'user_email': entity.web_session.user.email,
+                'user_email': entity.web_session.user.email
+                if entity.web_session.user is not None else '',
                 'type': entity.log_type.type,
                 'details': entity.details,
                 'web_session_ip': entity.web_session.ip,
@@ -107,29 +104,9 @@ class LogEntity(db.Model, CRUDMixin):
         LogEntity._log(LOG_TYPE_LOGIN_ERROR, session_id, details)
 
     @staticmethod
-    def file_uploaded(session_id, details=''):
-        """ Log file upload """
-        LogEntity._log(LOG_TYPE_FILE_UPLOADED, session_id, details)
-
-    @staticmethod
-    def file_downloaded(session_id, details=''):
-        """ Log file download """
-        LogEntity._log(LOG_TYPE_FILE_DOWNLOADED, session_id, details)
-
-    @staticmethod
     def account_modified(session_id, details=''):
         """ Log account changes """
         LogEntity._log(LOG_TYPE_ACCOUNT_MODIFIED, session_id, details)
-
-    @staticmethod
-    def redcap_subjects_imported(session_id, details=''):
-        """ Log it """
-        LogEntity._log(LOG_TYPE_REDCAP_SUBJECTS_IMPORTED, session_id, details)
-
-    @staticmethod
-    def redcap_events_imported(session_id, details=''):
-        """ Log it """
-        LogEntity._log(LOG_TYPE_REDCAP_EVENTS_IMPORTED, session_id, details)
 
     def __repr__(self):
         """ Return a friendly object representation """
