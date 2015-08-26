@@ -53,7 +53,6 @@ def load_user(user_id):
 @login_manager.unauthorized_handler
 def unauthorized():
     """ Returns a message for the unauthorized users """
-    # return redirect('/')
     return 'Please <a href="{}">login</a> first.'.format(url_for('index'))
 
 
@@ -68,13 +67,13 @@ def page_not_found(e):
 class LoginForm(Form):
     """ Declare the validation rules for the login form """
     next = HiddenField(default='')
-
-    # email = TextField('Email', [validators.Length(min=4, max=25)])
-    email = TextField('Email')
-    password = PasswordField(
-        'Password', [
-            validators.Required(), validators.Length(
-                min=6, max=25)])
+    # email = TextField('Email')
+    email = TextField('Email',
+                      [validators.Required(),
+                       validators.Length(min=4, max=25)])
+    password = PasswordField('Password',
+                             [validators.Required(),
+                              validators.Length(min=6, max=25)])
 
 
 def get_user_agent():
@@ -97,8 +96,6 @@ def get_user_agent():
                                             browser=browser,
                                             version=version,
                                             language=language)
-
-    # app.logger.debug(user_agent)
     return user_agent
 
 
@@ -108,7 +105,6 @@ def check_session_id():
     Generate a UUID and store it in the session
     as well as in the WebSession table.
     """
-    # TODO: Create UserAgentEntity and populate
     user_agent = get_user_agent()
 
     if 'uuid' not in session:
@@ -153,7 +149,7 @@ def render_login_local():
 
     if request.method == 'POST' and form.validate():
         email = form.email.data.strip(
-            ) if form.email.data else "admin@example.com"
+            ) if form.email.data else ""
         password = form.password.data.strip() if form.password.data else ""
         app.logger.debug("{} password: {}".format(email, password))
 
@@ -336,18 +332,18 @@ def logout():
         https://shib.ncsu.edu/docs/logout.html
         https://wiki.shibboleth.net/confluence/display/CONCEPT/SLOIssues
     """
+    # Log the logout
+    if 'uuid' in session:
+        LogEntity.logout(session['uuid'])
+
     logout_user()
 
-    # Remove session keys set by Flask-Principal
-    for key in ('identity.name', 'identity.auth_type'):
+    # Remove session keys set by Flask-Principal, and `uuid` key set manually
+    for key in ('identity.name', 'identity.auth_type', 'uuid'):
         session.pop(key, None)
 
     # Tell Flask-Principal the user is anonymous
     identity_changed.send(current_app._get_current_object(),
                           identity=AnonymousIdentity())
 
-    # Log the logout
-    LogEntity.logout(session['uuid'])
-    # Also pop the session id
-    session.pop('uuid')
     return redirect('/')
