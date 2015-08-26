@@ -164,7 +164,7 @@ def check_email_config():
     @return: False if there are missing configuration parameters for emailing
     """
     passed = True
-    required = ['MAIL_USERNAME', 'MAIL_SERVER', 'MAIL_PORT']
+    required = ['MAIL_USERNAME', 'MAIL_PASSWORD', 'MAIL_SERVER', 'MAIL_PORT']
     errors = []
 
     for req in required:
